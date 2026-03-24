@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Auth Project</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; padding: 40px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;}
+        .role-badge { background: #007bff; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; text-transform: uppercase; }
+        .admin-section { background: #fff3cd; border: 1px solid #ffeeba; padding: 20px; border-radius: 5px; margin-top: 20px; }
+        .btn { display: inline-block; background: #333; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; }
+        .btn-danger { background: #dc3545; }
+        .btn-admin { background: #856404; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Auth System</h2>
+        <div>
+            <% if (typeof user !== 'undefined' && user) { %>
+                <a href="/users/logout" class="btn btn-danger">Logout</a>
+            <% } else { %>
+                <a href="/users/login" class="btn">Login</a>
+                <a href="/users/register" class="btn">Register</a>
+            <% } %>
+        </div>
+    </div>
+
+    <% if (typeof user !== 'undefined' && user) { %>
+        
+        <section>
+             <h1>Welcome Back!</h1>
+             <p>Logged in as: <strong><%= user.email %></strong></p>
+    
+             <p>Your last session was on: 
+                <span style="color: #666;">
+                    <%= user.lastLogin.toLocaleString() %>
+                </span>
+             </p>
+    
+             <p>Your Status: <span class="role-badge"><%= user.role %></span></p>
+        </section>
+
+        <% if (user.role === 'admin') { %>
+            <div class="admin-section">
+                <h3>Admin Privileges Detected</h3>
+                <p>Because your role is "admin", you have access to the protected administrative functions below:</p>
+                <a href="/users/admin-panel?role=admin" class="btn btn-admin">Go to User Management</a>
+            </div>
+        <% } %>
+
+        <hr>
+        <h4>Technical Requirements Demo:</h4>
+        <ul>
+            <li><strong>Find Method:</strong> Used to retrieve this user profile.</li>
+            <li><strong>Directives:</strong> The <code>if/else</code> blocks controlling this UI.</li>
+            <li><strong>Covered Query Test:</strong> <a href="/users/check-role?email=<%= user.email %>" target="_blank">Verify JSON Index-only Response</a></li>
+        </ul>
+
+    <% } else { %>
+        <div style="text-align: center;">
+            <h3>Please log in to view your profile.</h3>
+            <p>This application demonstrates Node.js authentication flow with MongoDB.</p>
+        </div>
+    <% } %>
+</div>
+
+</body>
+</html>

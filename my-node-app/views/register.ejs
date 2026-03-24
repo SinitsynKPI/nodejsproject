@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Auth Project</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .register-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h1 { text-align: center; color: #1c1e21; }
+        .error-box { background: #ffebe8; border: 1px solid #dd3c10; color: #dd3c10; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .link { text-align: center; margin-top: 15px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h1>Create Account</h1>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-box">
+            <strong>Error:</strong> <%= error %>
+        </div>
+    <% } %>
+
+    <form action="/users/register" method="POST">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min 6 characters" required>
+
+        <label for="role">Assign Role</label>
+        <select name="role" id="role">
+            <option value="user">Standard User</option>
+            <option value="admin">Administrator</option>
+        </select>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="link">
+        Already have an account? <a href="/users/login">Log In</a>
+    </div>
+</div>
+
+</body>
+</html>
